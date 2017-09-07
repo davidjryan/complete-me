@@ -1,11 +1,13 @@
 import { expect } from 'chai';
 import Trie from '../scripts/Trie';
 
-describe('TRIE', () => {
+describe('add', () => {
   let tree;
 
   beforeEach(() => {
     tree = new Trie()
+    tree.add('daver')
+    tree.add('dave')
   })
 
   it('should be a thing', () => {
@@ -13,16 +15,28 @@ describe('TRIE', () => {
   })
 
   it('should take a word', () => {
-    tree.add('david');
-    expect(tree.count).to.equal(1);
+    expect(tree.count).to.be.above(0);
   })
 
   it('should count words added', () => {
-    tree.add('david')
-    expect(tree.count).to.equal(1);
+    expect(tree.count).to.equal(2);
   })
-
-  
-
-
 })
+
+describe('suggest', () => {
+  let tree;
+
+  beforeEach(() => {
+    tree = new Trie()
+    tree.add('david')
+    tree.add('daver')
+    tree.add('dave')
+    tree.add('davad')
+    tree.add('durvur')
+    tree.add('durvad')
+  }))
+
+  it('should traverse to the last node of input', () => {
+    tree.suggest('dav')
+    expect(tree.suggest('dav')).to.eql([david, dave])
+  })
