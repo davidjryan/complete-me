@@ -34,9 +34,11 @@ describe('suggest', () => {
     tree.add('davad')
     tree.add('durvur')
     tree.add('durvad')
-  }))
-
-  it('should traverse to the last node of input', () => {
-    tree.suggest('dav')
-    expect(tree.suggest('dav')).to.eql([david, dave])
   })
+
+  it('should produce accurate suggestions', () => {
+    expect(tree.suggest('dav')).to.eql(['david', 'dave', 'daver', 'davad'])
+
+    expect(tree.suggest('du')).to.eql(['durvur', 'durvad'])
+  })
+})

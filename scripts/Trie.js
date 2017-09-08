@@ -67,4 +67,8 @@ export default class Trie extends TrieNode {
 
     return allWords;
   }
+
+  populate(dictionary) {
+    
+  }
 }
