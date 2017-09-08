@@ -48,12 +48,9 @@ describe('suggest', () => {
 })
 
 describe('populate', () => {
-  let tree;
+  let tree = new Trie()
 
-  beforeEach(() => {
-    tree = new Trie()
-    tree.populate(dictionary)
-  })
+  tree.populate(dictionary)
 
   it('dictionary should have populated', () => {
     expect(tree.count).to.eql(235886)
@@ -61,5 +58,28 @@ describe('populate', () => {
 
   it('should give accurate suggestions', () => {
     expect(tree.suggest('piz')).to.eql(["pize", "pizza", "pizzeria", "pizzicato", "pizzle"])
+  })
+})
+
+describe('select', () => {
+  let tree = new Trie()
+
+  tree.populate(dictionary)
+
+  it('should increment frequency', () => {
+    tree.select('pizza')
+    expect(tree.find('pizza', tree).freq).to.eql(1)
+  })
+
+  it('should give accurate suggestions', () => {
+
+    tree.find('pizza', tree).freq = 0;
+
+    expect(tree.find('pizza', tree).freq).to.eql(0)
+    expect(tree.suggest('piz')).to.eql(["pize", "pizza", "pizzeria", "pizzicato", "pizzle"])
+
+    tree.select('pizza')
+
+    expect(tree.suggest('piz')).to.eql(["pizza", "pize", "pizzeria", "pizzicato", "pizzle"])
   })
 })
