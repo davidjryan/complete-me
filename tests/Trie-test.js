@@ -1,6 +1,10 @@
 import { expect } from 'chai';
 import Trie from '../scripts/Trie';
 
+const fs = require('fs')
+const text = "/usr/share/dict/words"
+const dictionary = fs.readFileSync(text).toString().trim().split('\n')
+
 describe('add', () => {
   let tree;
 
@@ -40,5 +44,22 @@ describe('suggest', () => {
     expect(tree.suggest('dav')).to.eql(['david', 'dave', 'daver', 'davad'])
 
     expect(tree.suggest('du')).to.eql(['durvur', 'durvad'])
+  })
+})
+
+describe('populate', () => {
+  let tree;
+
+  beforeEach(() => {
+    tree = new Trie()
+    tree.populate(dictionary)
+  })
+
+  it('dictionary should have populated', () => {
+    expect(tree.count).to.eql(235886)
+  })
+
+  it('should give accurate suggestions', () => {
+    expect(tree.suggest('piz')).to.eql(["pize", "pizza", "pizzeria", "pizzicato", "pizzle"])
   })
 })
