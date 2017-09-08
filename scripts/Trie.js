@@ -69,6 +69,8 @@ export default class Trie extends TrieNode {
   }
 
   populate(dictionary) {
-    
+    dictionary.forEach((currentValue) => {
+      this.add(currentValue);
+    })
   }
 }
