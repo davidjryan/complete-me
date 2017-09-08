@@ -5,6 +5,10 @@ describe('TRIENODE', () => {
   let node;
 
   beforeEach(() => {
-    node = new TrieNode()
+    node = new TrieNode('d')
+  })
+
+  it('should take a value', () => {
+    expect(node.value).to.eql('d')
   })
 })
